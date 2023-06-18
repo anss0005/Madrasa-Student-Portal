@@ -2,23 +2,23 @@ package com.example.madrasastudent;
 
 public class Student
 {
-    private String id;
+    private int id;
     private String name;
-    private String age;
+    private int age;
     private String clas;
 
-    public Student(String id, String name, String age, String clas) {
+    public Student(int id, String name, int age, String clas) {
         this.id = id;
         this.name = name;
         this.age = age;
         this.clas = clas;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -30,11 +30,11 @@ public class Student
         this.name = name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 

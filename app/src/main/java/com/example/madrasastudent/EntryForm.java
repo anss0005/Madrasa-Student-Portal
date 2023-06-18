@@ -43,7 +43,7 @@ public class EntryForm extends AppCompatActivity {
                     return;
                 }
 
-                Student student = new Student(id, name, age, className);
+                Student student = new Student(Integer.parseInt(id), name, Integer.parseInt(age), className);
                 dbHelper.insertStudent(student);
 
                 Toast.makeText(EntryForm.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
