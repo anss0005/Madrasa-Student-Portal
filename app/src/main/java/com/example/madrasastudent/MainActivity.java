@@ -3,6 +3,7 @@ package com.example.madrasastudent;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,6 +37,24 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
+        SearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent=new Intent(MainActivity.this,Search.class);
+                startActivity(intent);
+            }
+        });
+
+        GitBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String url="https://github.com/anss0005/Madrasa-Student-Portal";
+                Intent intent=new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
+            }
+        });
 
     }
 
