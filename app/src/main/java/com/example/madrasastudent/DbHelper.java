@@ -1,12 +1,11 @@
+package com.example.madrasastudent;
 
-
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import androidx.annotation.Nullable;
-
-public class DBHelper extends SQLiteOpenHelper {
+public class DbHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "StudentDB";
     private static final String TABLE_NAME = "students";
@@ -15,12 +14,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String COLUMN_AGE = "age";
     private static final String COLUMN_CLASS = "class";
 
-    public DBHelper(Context context) {
+    public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-    }
-
-    public DBHelper(@Nullable Context context, @Nullable String name, @Nullable SQLiteDatabase.CursorFactory factory, int version) {
-        super(context, name, factory, version);
     }
 
     @Override
@@ -38,5 +33,18 @@ public class DBHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
+    }
+
+    public void insertStudent(Student student) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, student.getId());
+        values.put(COLUMN_NAME, student.getName());
+        values.put(COLUMN_AGE, student.getAge());
+        values.put(COLUMN_CLASS, student.getClas());
+
+        db.insert(TABLE_NAME, null, values);
+        db.close();
     }
 }
