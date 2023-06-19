@@ -1,24 +1,33 @@
 package com.example.madrasastudent;
 
-public class Student
-{
-    private int id;
-    private String name;
-    private int age;
-    private String clas;
+import android.content.ContentValues;
 
-    public Student(int id, String name, int age, String clas) {
+public class Student {
+    private String id;
+    private String name;
+    private String age;
+    private String clas;
+    private String sabaq;
+    private String sabqi;
+    private String manzil;
+    private String date;
+
+    public Student(String id, String name, String age, String className, String sabaq, String sabqi, String manzil, String date) {
         this.id = id;
         this.name = name;
         this.age = age;
-        this.clas = clas;
+        this.clas = className;
+        this.sabaq = sabaq;
+        this.sabqi = sabqi;
+        this.manzil = manzil;
+        this.date = date;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -30,11 +39,11 @@ public class Student
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -46,8 +55,49 @@ public class Student
         this.clas = clas;
     }
 
-
-    public String toString() {
-        return "com.example.madrasastudent.Student [  id=" + id + ", name=" + name + ",  age=" + age +  ", class=" + clas + "]";
+    public String getSabaq() {
+        return sabaq;
     }
+
+    public void setSabaq(String sabaq) {
+        this.sabaq = sabaq;
+    }
+
+    public String getSabqi() {
+        return sabqi;
+    }
+
+    public void setSabqi(String sabqi) {
+        this.sabqi = sabqi;
+    }
+
+    public String getManzil() {
+        return manzil;
+    }
+
+    public void setManzil(String manzil) {
+        this.manzil = manzil;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public ContentValues toContentValues() {
+        ContentValues values = new ContentValues();
+        values.put("id", id);
+        values.put("name", name);
+        values.put("age", age);
+        values.put("class", clas);
+        values.put("sabaq", sabaq);
+        values.put("sabqi", sabqi);
+        values.put("manzil", manzil);
+        values.put("date", date);
+        return values;
+    }
+
 }

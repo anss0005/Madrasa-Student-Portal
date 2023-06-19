@@ -37,14 +37,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        SearchBtn.setOnClickListener(new View.OnClickListener() {
+       /* SearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
                 Intent intent=new Intent(MainActivity.this,Search.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
         GitBtn.setOnClickListener(new View.OnClickListener() {
             @Override

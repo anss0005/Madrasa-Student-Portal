@@ -1,20 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EntryForm">
+    android:layout_height="match_parent">
 
     <EditText
         android:id="@+id/editTextId"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="76dp"
-        android:hint="Enter ID"
+        android:layout_marginTop="120dp"
+        android:hint="Student ID"
+        android:inputType="number"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -22,42 +20,77 @@
         android:id="@+id/editTextName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Enter Name"
-        app:layout_constraintTop_toBottomOf="@id/editTextId"
+        android:hint="Name"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextId" />
 
     <EditText
         android:id="@+id/editTextAge"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Enter Age"
-        app:layout_constraintTop_toBottomOf="@id/editTextName"
+        android:inputType="number"
+        android:hint="Age"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
     <EditText
         android:id="@+id/editTextClass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:hint="Enter Class"
-        app:layout_constraintTop_toBottomOf="@id/editTextAge"
+        android:hint="Class"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextAge" />
+
+    <EditText
+        android:id="@+id/editTextSabaq"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Sabaq"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextClass" />
+
+    <EditText
+        android:id="@+id/editTextSabqi"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Sabqi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSabaq" />
+
+    <EditText
+        android:id="@+id/editTextManzil"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Manzil"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextSabqi" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Date"
+        android:inputType="number"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editTextManzil" />
 
     <Button
-        android:id="@+id/buttonSubmit"
+        android:id="@+id/buttonSave"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
         android:text="Submit"
-        app:layout_constraintTop_toBottomOf="@id/editTextClass"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-
+        app:layout_constraintTop_toBottomOf="@+id/editTextDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-

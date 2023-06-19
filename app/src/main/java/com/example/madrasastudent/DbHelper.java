@@ -11,13 +11,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "StudentDatabase";
     private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "StudentDB";
-    private static final String TABLE_NAME = "students";
-    private static final String COLUMN_ID = "id";
+
+   public static final String TABLE_STUDENT = "student";
+    public static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_AGE = "age";
     private static final String COLUMN_CLASS = "class";
+    private static final String COLUMN_SABAQ = "sabaq";
+    private static final String COLUMN_SABQI = "sabqi";
+    private static final String COLUMN_MANZIL = "manzil";
+    private static final String COLUMN_DATE = "date";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -25,72 +30,42 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
-                + COLUMN_ID + " INTEGER PRIMARY KEY,"
-                + COLUMN_NAME + " TEXT,"
-                + COLUMN_AGE + " INTEGER,"
-                + COLUMN_CLASS + " TEXT"
-                + ")";
-        db.execSQL(CREATE_TABLE);
+        String createTableQuery = "CREATE TABLE " + TABLE_STUDENT + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                COLUMN_NAME + " TEXT, " +
+                COLUMN_AGE + " INTEGER, " +
+                COLUMN_CLASS + " TEXT, " +
+                COLUMN_SABAQ + " TEXT, " +
+                COLUMN_SABQI + " TEXT, " +
+                COLUMN_MANZIL + " TEXT, " +
+                COLUMN_DATE + " TEXT)";
+
+        db.execSQL(createTableQuery);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
         onCreate(db);
     }
 
-    public void insertStudent(Student student) {
+
+    public long insertStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues values = new ContentValues();
-        values.put(COLUMN_ID, student.getId());
-        values.put(COLUMN_NAME, student.getName());
-        values.put(COLUMN_AGE, student.getAge());
-        values.put(COLUMN_CLASS, student.getClas());
-
-        db.insert(TABLE_NAME, null, values);
+        ContentValues values = student.toContentValues();
+        long result = db.insert(TABLE_STUDENT, null, values);
         db.close();
+        return result;
     }
 
-
-    public Student searchStudent(int id) {
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        String[] projection = {COLUMN_ID, COLUMN_NAME, COLUMN_AGE, COLUMN_CLASS};
-        String selection = COLUMN_ID + "=?";
-        String[] selectionArgs = {String.valueOf(id)};
-
-        Cursor cursor = db.query(TABLE_NAME, projection, selection, selectionArgs, null, null, null);
-        if (cursor.moveToFirst()) {
-            int columnIndexId = cursor.getColumnIndex(COLUMN_ID);
-            int columnIndexName = cursor.getColumnIndex(COLUMN_NAME);
-            int columnIndexAge = cursor.getColumnIndex(COLUMN_AGE);
-            int columnIndexClass = cursor.getColumnIndex(COLUMN_CLASS);
-
-            if (columnIndexId >= 0 && columnIndexName >= 0 && columnIndexAge >= 0 && columnIndexClass >= 0) {
-                int studentId = cursor.getInt(columnIndexId);
-                String name = cursor.getString(columnIndexName);
-                int age = cursor.getInt(columnIndexAge);
-                String className = cursor.getString(columnIndexClass);
-
-                Student student = new Student(studentId, name, age, className);
-                cursor.close();
-                return student;
-            }
-        }
-
-        cursor.close();
-        return null;
-    }
+}
 
 
 
 
 
 
-
-    public List<Student> getAllStudents() {
+    /*public List<Student> getAllStudents() {
         List<Student> students = new ArrayList<>();
 
         String sql = "SELECT * FROM " + TABLE_NAME;
@@ -98,17 +73,7 @@ public class DbHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         Cursor cursor = db.rawQuery(sql, null);
 
-        /*
-        * if (cursorCourses.moveToFirst()) {
-            do {
 
-                studentArrayList.add(new StudentModel(cursorCourses.getString(1),
-                      cursorCourses.getInt(2),
-                        cursorCourses.getInt(3) == 1 ? true : false));
-            } while (cursorCourses.moveToNext());
-
-        }
-        * */
 
         if (cursor.moveToFirst()) {
             do {
@@ -124,8 +89,8 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
 
         return students;
-    }
+    }*/
 
 
 
-}
+
