@@ -1,3 +1,4 @@
+
 package com.example.madrasastudent;
 
 import android.os.Bundle;
@@ -10,16 +11,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
+import com.example.madrasastudent.DbHelper;
+import com.example.madrasastudent.Student;
+import com.example.madrasastudent.StudentAdapter;
+
 import java.util.List;
 
 public class Search extends AppCompatActivity {
-
     private EditText editTextSearch;
-    private Button searchButton, viewAllButton;
-    private RecyclerView recyclerView;
+    private Button buttonSearch;
+    private Button buttonViewAll;
+    private RecyclerView recyclerViewStudents;
     private StudentAdapter studentAdapter;
-    private List<Student> studentList;
     private DbHelper dbHelper;
 
     @Override
@@ -27,54 +30,43 @@ public class Search extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
 
-        // Initialize views
-        editTextSearch = findViewById(R.id.editTextSearch);
-        searchButton = findViewById(R.id.searchButton);
-        viewAllButton = findViewById(R.id.viewAllButton);
-        recyclerView = findViewById(R.id.recyclerView);
-
-        // Initialize database helper
         dbHelper = new DbHelper(this);
 
-        // Set up RecyclerView
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        studentList = new ArrayList<>();
-        studentAdapter = new StudentAdapter(studentList);
-        recyclerView.setAdapter(studentAdapter);
+        editTextSearch = findViewById(R.id.editTextSearch);
+        buttonSearch = findViewById(R.id.buttonSearch);
+        buttonViewAll = findViewById(R.id.buttonViewAll);
+        recyclerViewStudents = findViewById(R.id.recyclerViewStudents);
+        recyclerViewStudents.setLayoutManager(new LinearLayoutManager(this));
+        studentAdapter = new StudentAdapter();
 
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String searchQuery = editTextSearch.getText().toString().trim();
-                searchStudents(searchQuery);
+                String searchId = editTextSearch.getText().toString().trim();
+                if (!searchId.isEmpty()) {
+                    Student student = dbHelper.searchStudentById(searchId);
+                    if (student != null) {
+                        studentAdapter.clearStudents();
+                        studentAdapter.addStudent((List<Student>) student);
+                        recyclerViewStudents.setAdapter(studentAdapter);
+                    } else {
+                        studentAdapter.clearStudents();
+                        recyclerViewStudents.setAdapter(studentAdapter);
+                        Toast.makeText(Search.this, "No student found with ID: " + searchId, Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(Search.this, "Please enter a valid ID", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
-        viewAllButton.setOnClickListener(new View.OnClickListener() {
+        buttonViewAll.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                displayAllStudents();
+                List<Student> studentList = dbHelper.viewAllStudents();
+                studentAdapter.setStudents(studentList);
+                recyclerViewStudents.setAdapter(studentAdapter);
             }
         });
-    }
-
-    private void searchStudents(String query) {
-        List<Student> searchResults = dbHelper.searchStudent(query);
-        if (searchResults.isEmpty()) {
-            Toast.makeText(this, "No results found", Toast.LENGTH_SHORT).show();
-        }
-        studentList.clear();
-        studentList.addAll(searchResults);
-        studentAdapter.notifyDataSetChanged();
-    }
-
-    private void displayAllStudents() {
-        List<Student> allStudents = dbHelper.getAllStudents();
-        if (allStudents.isEmpty()) {
-            Toast.makeText(this, "No students found", Toast.LENGTH_SHORT).show();
-        }
-        studentList.clear();
-        studentList.addAll(allStudents);
-        studentAdapter.notifyDataSetChanged();
     }
 }

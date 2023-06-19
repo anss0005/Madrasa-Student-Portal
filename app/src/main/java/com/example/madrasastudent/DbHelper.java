@@ -1,6 +1,5 @@
 package com.example.madrasastudent;
 
-import android.annotation.SuppressLint;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,18 +10,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DbHelper extends SQLiteOpenHelper {
-    private static final String DATABASE_NAME = "StudentDatabase";
+    private static final String DATABASE_NAME = "madrasa_database";
     private static final int DATABASE_VERSION = 1;
+    private static final String TABLE_NAME = "students";
 
-   public static final String TABLE_STUDENT = "student";
-    public static final String COLUMN_ID = "id";
+    private static final String COLUMN_ID = "id";
     private static final String COLUMN_NAME = "name";
     private static final String COLUMN_AGE = "age";
     private static final String COLUMN_CLASS = "class";
+    private static final String COLUMN_DOB = "dob";
+    private static final String COLUMN_MANZIL = "manzil";
     private static final String COLUMN_SABAQ = "sabaq";
     private static final String COLUMN_SABQI = "sabqi";
-    private static final String COLUMN_MANZIL = "manzil";
-    private static final String COLUMN_DATE = "date";
 
     public DbHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -30,188 +29,119 @@ public class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String createTableQuery = "CREATE TABLE " + TABLE_STUDENT + " (" +
-                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                COLUMN_NAME + " TEXT, " +
-                COLUMN_AGE + " INTEGER, " +
-                COLUMN_CLASS + " TEXT, " +
-                COLUMN_SABAQ + " TEXT, " +
-                COLUMN_SABQI + " TEXT, " +
-                COLUMN_MANZIL + " TEXT, " +
-                COLUMN_DATE + " TEXT)";
-
-        db.execSQL(createTableQuery);
+        String CREATE_TABLE = "CREATE TABLE " + TABLE_NAME + "("
+                + COLUMN_ID + " INTEGER PRIMARY KEY,"
+                + COLUMN_NAME + " TEXT,"
+                + COLUMN_AGE + " INTEGER,"
+                + COLUMN_CLASS + " TEXT,"
+                + COLUMN_DOB + " TEXT,"
+                + COLUMN_MANZIL + " TEXT,"
+                + COLUMN_SABAQ + " TEXT,"
+                + COLUMN_SABQI + " TEXT"
+                + ")";
+        db.execSQL(CREATE_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STUDENT);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
         onCreate(db);
     }
 
-
-    public long insertStudent(Student student) {
-        SQLiteDatabase db = this.getWritableDatabase();
-        ContentValues values = student.toContentValues();
-        long result = db.insert(TABLE_STUDENT, null, values);
-        db.close();
-        return result;
+    public boolean checkStudentExists(String id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_ID + "=?", new String[]{id}, null, null, null);
+        boolean exists = cursor.moveToFirst();
+        cursor.close();
+        return exists;
     }
 
+    public long insertDataIntoDatabase(String id, String name, String age, String studentClass, String dob,
+                                       String manzil, String sabaq, String sabqi) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_ID, id);
+        values.put(COLUMN_NAME, name);
+        values.put(COLUMN_AGE, age);
+        values.put(COLUMN_CLASS, studentClass);
+        values.put(COLUMN_DOB, dob);
+        values.put(COLUMN_MANZIL, manzil);
+        values.put(COLUMN_SABAQ, sabaq);
+        values.put(COLUMN_SABQI, sabqi);
+        long newRowId = db.insert(TABLE_NAME, null, values);
+        db.close();
+        return newRowId;
+    }
 
+    public Student searchStudentById(String searchId) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, COLUMN_ID + "=?", new String[]{searchId}, null, null, null);
 
+        if (cursor != null && cursor.moveToFirst()) {
+            int idIndex = cursor.getColumnIndex(COLUMN_ID);
+            int nameIndex = cursor.getColumnIndex(COLUMN_NAME);
+            int ageIndex = cursor.getColumnIndex(COLUMN_AGE);
+            int classIndex = cursor.getColumnIndex(COLUMN_CLASS);
+            int dobIndex = cursor.getColumnIndex(COLUMN_DOB);
+            int manzilIndex = cursor.getColumnIndex(COLUMN_MANZIL);
+            int sabaqIndex = cursor.getColumnIndex(COLUMN_SABAQ);
+            int sabqiIndex = cursor.getColumnIndex(COLUMN_SABQI);
 
-    public List<Student> searchStudent(String searchQuery) {
-        List<Student> resultList = new ArrayList<>();
+            String id = cursor.getString(idIndex);
+            String name = cursor.getString(nameIndex);
+            int age = cursor.getInt(ageIndex);
+            String studentClass = cursor.getString(classIndex);
+            String dob = cursor.getString(dobIndex);
+            String manzil = cursor.getString(manzilIndex);
+            String sabaq = cursor.getString(sabaqIndex);
+            String sabqi = cursor.getString(sabqiIndex);
 
-        SQLiteDatabase db = this.getReadableDatabase();
-
-        // Define the columns to retrieve from the database
-        String[] projection = {
-                COLUMN_ID,
-                COLUMN_NAME,
-                COLUMN_AGE,
-                COLUMN_CLASS,
-                COLUMN_SABAQ,
-                COLUMN_SABQI,
-                COLUMN_MANZIL,
-                COLUMN_DATE
-        };
-
-        // Define the selection criteria
-        String selection = COLUMN_NAME + " LIKE ? OR " +
-                COLUMN_CLASS + " LIKE ?";
-
-        // Define the selection arguments
-        String[] selectionArgs = { "%" + searchQuery + "%", "%" + searchQuery + "%" };
-
-        // Execute the query
-        Cursor cursor = db.query(
-                TABLE_STUDENT,
-                projection,
-                selection,
-                selectionArgs,
-                null,
-                null,
-                null
-        );
-
-        // Retrieve the column indexes
-        int idColumnIndex = cursor.getColumnIndex(COLUMN_ID);
-        int nameColumnIndex = cursor.getColumnIndex(COLUMN_NAME);
-        int ageColumnIndex = cursor.getColumnIndex(COLUMN_AGE);
-        int classColumnIndex = cursor.getColumnIndex(COLUMN_CLASS);
-        int sabaqColumnIndex = cursor.getColumnIndex(COLUMN_SABAQ);
-        int sabqiColumnIndex = cursor.getColumnIndex(COLUMN_SABQI);
-        int manzilColumnIndex = cursor.getColumnIndex(COLUMN_MANZIL);
-        int dateColumnIndex = cursor.getColumnIndex(COLUMN_DATE);
-
-        // Iterate over the cursor and create Student objects
-        while (cursor.moveToNext()) {
-            int id = cursor.getInt(idColumnIndex);
-            String name = cursor.getString(nameColumnIndex);
-            int age = cursor.getInt(ageColumnIndex);
-            String className = cursor.getString(classColumnIndex);
-            String sabaq = cursor.getString(sabaqColumnIndex);
-            String sabqi = cursor.getString(sabqiColumnIndex);
-            String manzil = cursor.getString(manzilColumnIndex);
-            String date = cursor.getString(dateColumnIndex);
-
-            Student student = new Student(id, name, age, className, sabaq, sabqi, manzil, date);
-            resultList.add(student);
+            cursor.close();
+            return new Student(id, name, age, studentClass, dob, manzil, sabaq, sabqi);
         }
 
-        // Close the cursor and database
-        cursor.close();
-        db.close();
-
-        return resultList;
+        return null;
     }
 
-
-
-
-
-    public List<Student> getAllStudents() {
+    public List<Student> viewAllStudents() {
         List<Student> studentList = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor cursor = db.query(TABLE_NAME, null, null, null, null, null, null);
 
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                int idIndex = cursor.getColumnIndex(COLUMN_ID);
+                int nameIndex = cursor.getColumnIndex(COLUMN_NAME);
+                int ageIndex = cursor.getColumnIndex(COLUMN_AGE);
+                int classIndex = cursor.getColumnIndex(COLUMN_CLASS);
+                int dobIndex = cursor.getColumnIndex(COLUMN_DOB);
+                int manzilIndex = cursor.getColumnIndex(COLUMN_MANZIL);
+                int sabaqIndex = cursor.getColumnIndex(COLUMN_SABAQ);
+                int sabqiIndex = cursor.getColumnIndex(COLUMN_SABQI);
 
-        try {
-            cursor = db.query(TABLE_STUDENT, null, null, null, null, null, null);
+                String id = cursor.getString(idIndex);
+                String name = cursor.getString(nameIndex);
+                int age = cursor.getInt(ageIndex);
+                String studentClass = cursor.getString(classIndex);
+                String dob = cursor.getString(dobIndex);
+                String manzil = cursor.getString(manzilIndex);
+                String sabaq = cursor.getString(sabaqIndex);
+                String sabqi = cursor.getString(sabqiIndex);
 
-            if (cursor != null) {
-                while (cursor.moveToNext()) {
-                    int idIndex = cursor.getColumnIndex(COLUMN_ID);
-                    int nameIndex = cursor.getColumnIndex(COLUMN_NAME);
-                    int ageIndex = cursor.getColumnIndex(COLUMN_AGE);
-                    int classIndex = cursor.getColumnIndex(COLUMN_CLASS);
-                    int sabaqIndex = cursor.getColumnIndex(COLUMN_SABAQ);
-                    int sabqiIndex = cursor.getColumnIndex(COLUMN_SABQI);
-                    int manzilIndex = cursor.getColumnIndex(COLUMN_MANZIL);
-                    int dateIndex = cursor.getColumnIndex(COLUMN_DATE);
-
-                    if (idIndex >= 0 && nameIndex >= 0 && ageIndex >= 0 && classIndex >= 0 &&
-                            sabaqIndex >= 0 && sabqiIndex >= 0 && manzilIndex >= 0 && dateIndex >= 0) {
-                        String id = cursor.getString(idIndex);
-                        String name = cursor.getString(nameIndex);
-                        String age = cursor.getString(ageIndex);
-                        String className = cursor.getString(classIndex);
-                        String sabaq = cursor.getString(sabaqIndex);
-                        String sabqi = cursor.getString(sabqiIndex);
-                        String manzil = cursor.getString(manzilIndex);
-                        String date = cursor.getString(dateIndex);
-
-                        Student student = new Student(Integer.parseInt(id), name, Integer.parseInt(age), className, sabaq, sabqi, manzil, date);
-                        studentList.add(student);
-                    }
-                }
-            }
-        } finally {
-            if (cursor != null) {
-                cursor.close();
-            }
-            db.close();
+                Student student = new Student(id, name, age, studentClass, dob, manzil, sabaq, sabqi);
+                studentList.add(student);
+            } while (cursor.moveToNext());
+            cursor.close();
         }
 
         return studentList;
     }
 
 
+
+
+
+
+
+
 }
-
-
-
-
-
-
-    /*public List<Student> getAllStudents() {
-        List<Student> students = new ArrayList<>();
-
-        String sql = "SELECT * FROM " + TABLE_NAME;
-
-        SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(sql, null);
-
-
-
-        if (cursor.moveToFirst()) {
-            do {
-                @SuppressLint("Range") int id = cursor.getInt(cursor.getColumnIndex(COLUMN_ID));
-                @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
-                @SuppressLint("Range")  String age = cursor.getString(cursor.getColumnIndex(COLUMN_AGE));
-                @SuppressLint("Range") String clas = String.valueOf(cursor.getInt(cursor.getColumnIndex(COLUMN_CLASS)));
-                students.add(new Student(id, name,Integer.parseInt(age),clas));
-            } while (cursor.moveToNext());
-        }
-
-        cursor.close();
-        db.close();
-
-        return students;
-    }*/
-
-
-
-

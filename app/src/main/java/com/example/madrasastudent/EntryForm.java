@@ -8,14 +8,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-import com.example.madrasastudent.DbHelper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class EntryForm extends AppCompatActivity {
 
-    private EditText editTextId, editTextName, editTextAge, editTextClass, editTextSabaq, editTextSabqi, editTextManzil, editTextDate;
-    private Button buttonSave;
+    private EditText editTextId;
+    private EditText editTextName;
+    private EditText editTextAge;
+    private EditText editTextClass;
+    private EditText editTextDOB;
+    private EditText editTextManzil;
+    private EditText editTextSabaq;
+    private EditText editTextSabqi;
+    private Button buttonSubmit;
+
     private DbHelper dbHelper;
 
     @Override
@@ -23,94 +30,49 @@ public class EntryForm extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_entry_form);
 
-        // Initialize views
+        dbHelper = new DbHelper(this);
+
+        // Find all the EditText and Button views by their IDs
         editTextId = findViewById(R.id.editTextId);
         editTextName = findViewById(R.id.editTextName);
         editTextAge = findViewById(R.id.editTextAge);
         editTextClass = findViewById(R.id.editTextClass);
+        editTextDOB = findViewById(R.id.editTextDOB);
+        editTextManzil = findViewById(R.id.editTextManzil);
         editTextSabaq = findViewById(R.id.editTextSabaq);
         editTextSabqi = findViewById(R.id.editTextSabqi);
-        editTextManzil = findViewById(R.id.editTextManzil);
-        editTextDate = findViewById(R.id.editTextDate);
-        buttonSave = findViewById(R.id.buttonSave);
+        buttonSubmit = findViewById(R.id.buttonSubmit);
 
-        // Initialize DbHelper
-        dbHelper = new DbHelper(this);
-
-        buttonSave.setOnClickListener(new View.OnClickListener() {
+        // Set a click listener for the Submit button
+        buttonSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the data from the EditText fields
+                // Retrieve the entered values from the EditText fields
                 String id = editTextId.getText().toString();
                 String name = editTextName.getText().toString();
                 String age = editTextAge.getText().toString();
-                String className = editTextClass.getText().toString();
+                String studentClass = editTextClass.getText().toString();
+                String dob = editTextDOB.getText().toString();
+                String manzil = editTextManzil.getText().toString();
                 String sabaq = editTextSabaq.getText().toString();
                 String sabqi = editTextSabqi.getText().toString();
-                String manzil = editTextManzil.getText().toString();
-                String date = editTextDate.getText().toString();
 
-                // Create a new instance of the Student class
-                Student student = new Student(Integer.parseInt(id), name,Integer.parseInt(age), className, sabaq, sabqi, manzil, date);
-
-                // Create a new instance of SQLiteDatabase for writing to the database
-                SQLiteDatabase db = dbHelper.getWritableDatabase();
-
-                // Define the columns to be queried
-                String[] projection = {DbHelper.COLUMN_ID};
-
-                // Define the selection criteria
-                String selection = DbHelper.COLUMN_ID + " = ?";
-
-                // Define the selection arguments
-                String[] selectionArgs = {id};
-
-                // Perform the query
-                Cursor cursor = db.query(
-                        DbHelper.TABLE_STUDENT,
-                        projection,
-                        selection,
-                        selectionArgs,
-                        null,
-                        null,
-                        null
-                );
-
-                // Check if the cursor has any rows
-                if (cursor.moveToFirst()) {
-                    Toast.makeText(EntryForm.this, "Student with ID already exists", Toast.LENGTH_SHORT).show();
-                    // Student with the given ID already exists
-                    // You can add any desired actions or display an error message here
+                // Check if the student with the same ID already exists
+                boolean studentExists = dbHelper.checkStudentExists(id);
+                if (studentExists) {
+                    // Student with the same ID already exists
+                    Toast.makeText(EntryForm.this, "Student already exists with the same ID", Toast.LENGTH_SHORT).show();
                 } else {
                     // Insert the data into the database
-                    long result = db.insert(DbHelper.TABLE_STUDENT, null, student.toContentValues());
+                    long newRowId = dbHelper.insertDataIntoDatabase(id, name, age, studentClass, dob, manzil, sabaq, sabqi);
 
-                    // Check if the data was successfully inserted
-                    if (result != -1) {
-                        Toast.makeText(EntryForm.this, "Data Inserted Successfully", Toast.LENGTH_SHORT).show();
-                        // Data inserted successfully
-                        // You can add any desired actions or display a success message here
+                    if (newRowId != -1) {
+                        Toast.makeText(EntryForm.this, "Data inserted successfully", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(EntryForm.this, "Data Failed to Insert", Toast.LENGTH_SHORT).show();
-                        // Failed to insert data
-                        // You can add any desired actions or display an error message here
+                        Toast.makeText(EntryForm.this, "Error inserting data into database", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-                // Close the cursor and the database connection
-                cursor.close();
-                db.close();
             }
         });
-
-
-
-
     }
-
-
-
-
-    }
-
-
+}
