@@ -1,4 +1,5 @@
 package com.example.madrasastudent;
+
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_search, parent, false);
         return new StudentViewHolder(view);
     }
 
@@ -38,18 +39,27 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         private TextView textViewName;
         private TextView textViewAge;
         private TextView textViewClass;
+        private TextView textViewSabaq;
+        private TextView textViewSabqi;
+        private TextView textViewManzil;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewAge = itemView.findViewById(R.id.textViewAge);
             textViewClass = itemView.findViewById(R.id.textViewClass);
+            textViewSabaq = itemView.findViewById(R.id.textViewSabaq);
+            textViewSabqi = itemView.findViewById(R.id.textViewSabqi);
+            textViewManzil = itemView.findViewById(R.id.textViewManzil);
         }
 
         public void bind(Student student) {
             textViewName.setText(student.getName());
             textViewAge.setText(String.valueOf(student.getAge()));
             textViewClass.setText(student.getClassName());
+            textViewSabaq.setText(student.getSabaq());
+            textViewSabqi.setText(student.getSabqi());
+            textViewManzil.setText(student.getManzil());
         }
     }
 }
