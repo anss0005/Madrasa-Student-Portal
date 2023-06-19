@@ -20,7 +20,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
     @NonNull
     @Override
     public StudentViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_search, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_student, parent, false);
         return new StudentViewHolder(view);
     }
 
@@ -35,13 +35,14 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         return studentList.size();
     }
 
-    public class StudentViewHolder extends RecyclerView.ViewHolder {
+    public static class StudentViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewName;
         private TextView textViewAge;
         private TextView textViewClass;
         private TextView textViewSabaq;
         private TextView textViewSabqi;
         private TextView textViewManzil;
+        private TextView textViewDate;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -51,6 +52,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             textViewSabaq = itemView.findViewById(R.id.textViewSabaq);
             textViewSabqi = itemView.findViewById(R.id.textViewSabqi);
             textViewManzil = itemView.findViewById(R.id.textViewManzil);
+            textViewDate = itemView.findViewById(R.id.textViewDate);
         }
 
         public void bind(Student student) {
@@ -60,6 +62,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
             textViewSabaq.setText(student.getSabaq());
             textViewSabqi.setText(student.getSabqi());
             textViewManzil.setText(student.getManzil());
+            textViewDate.setText(student.getDate());
         }
     }
 }
