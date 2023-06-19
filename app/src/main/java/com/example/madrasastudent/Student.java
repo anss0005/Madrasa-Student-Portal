@@ -3,16 +3,16 @@ package com.example.madrasastudent;
 import android.content.ContentValues;
 
 public class Student {
-    private String id;
+    private int id;
     private String name;
-    private String age;
+    private int age;
     private String clas;
     private String sabaq;
     private String sabqi;
     private String manzil;
     private String date;
 
-    public Student(String id, String name, String age, String className, String sabaq, String sabqi, String manzil, String date) {
+    public Student(int id, String name, int age, String className, String sabaq, String sabqi, String manzil, String date) {
         this.id = id;
         this.name = name;
         this.age = age;
@@ -23,11 +23,11 @@ public class Student {
         this.date = date;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -39,11 +39,11 @@ public class Student {
         this.name = name;
     }
 
-    public String getAge() {
+    public int getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(int age) {
         this.age = age;
     }
 
@@ -100,4 +100,7 @@ public class Student {
         return values;
     }
 
+    public int getClassName() {
+        return 0;
+    }
 }

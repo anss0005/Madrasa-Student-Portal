@@ -1,5 +1,4 @@
 package com.example.madrasastudent;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +7,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentViewHolder> {
+    private List<Student> studentList;
 
-    private List<Student> students = new ArrayList<>();
-
-    public void setStudents(List<Student> students) {
-        this.students = students;
-        notifyDataSetChanged();
+    public StudentAdapter(List<Student> studentList) {
+        this.studentList = studentList;
     }
 
     @NonNull
@@ -29,35 +25,31 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
 
     @Override
     public void onBindViewHolder(@NonNull StudentViewHolder holder, int position) {
-        Student student = students.get(position);
+        Student student = studentList.get(position);
         holder.bind(student);
     }
 
     @Override
     public int getItemCount() {
-        return students.size();
+        return studentList.size();
     }
 
-    public static class StudentViewHolder extends RecyclerView.ViewHolder {
-        private TextView textViewId;
+    public class StudentViewHolder extends RecyclerView.ViewHolder {
         private TextView textViewName;
         private TextView textViewAge;
         private TextView textViewClass;
 
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewId = itemView.findViewById(R.id.textViewId);
             textViewName = itemView.findViewById(R.id.textViewName);
             textViewAge = itemView.findViewById(R.id.textViewAge);
             textViewClass = itemView.findViewById(R.id.textViewClass);
         }
 
         public void bind(Student student) {
-            textViewId.setText("ID: " + student.getId());
-            textViewName.setText("Name: " + student.getName());
-            textViewAge.setText("Age: " + student.getAge());
-            textViewClass.setText("Class: " + student.getClas());
+            textViewName.setText(student.getName());
+            textViewAge.setText(String.valueOf(student.getAge()));
+            textViewClass.setText(student.getClassName());
         }
     }
 }
-

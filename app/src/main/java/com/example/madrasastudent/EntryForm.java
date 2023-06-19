@@ -51,7 +51,7 @@ public class EntryForm extends AppCompatActivity {
                 String date = editTextDate.getText().toString();
 
                 // Create a new instance of the Student class
-                Student student = new Student(id, name, age, className, sabaq, sabqi, manzil, date);
+                Student student = new Student(Integer.parseInt(id), name,Integer.parseInt(age), className, sabaq, sabqi, manzil, date);
 
                 // Create a new instance of SQLiteDatabase for writing to the database
                 SQLiteDatabase db = dbHelper.getWritableDatabase();
