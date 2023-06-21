@@ -1,106 +1,77 @@
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:screenOrientation="portrait"
+    android:padding="16dp">
 
     <EditText
-        android:id="@+id/editTextId"
-        android:layout_width="0dp"
+        android:id="@+id/et_student_id"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:ems="10"
         android:hint="Student ID"
         android:inputType="text"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:maxLines="1"
+        android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/editTextName"
-        android:layout_width="0dp"
+        android:id="@+id/et_name"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
         android:hint="Name"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextId" />
+        android:inputType="text"
+        android:maxLines="1"
+        android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/editTextAge"
-        android:layout_width="0dp"
+        android:id="@+id/et_age"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="number"
         android:hint="Age"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextName" />
+        android:inputType="number"
+        android:maxLines="1"
+        android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/editTextClass"
-        android:layout_width="0dp"
+        android:id="@+id/et_clas"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
         android:hint="Class"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextAge" />
-
-    <EditText
-        android:id="@+id/editTextDOB"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="date"
-        android:hint="Date of Birth"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextClass" />
-
-    <EditText
-        android:id="@+id/editTextManzil"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
         android:inputType="text"
-        android:hint="Manzil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextDOB" />
+        android:maxLines="1"
+        android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/editTextSabaq"
-        android:layout_width="0dp"
+        android:id="@+id/et_sabaq"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="textMultiLine"
         android:hint="Sabaq"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextManzil" />
+        android:inputType="text"
+        android:maxLines="1"
+        android:minHeight="48dp" />
 
     <EditText
-        android:id="@+id/editTextSabqi"
-        android:layout_width="0dp"
+        android:id="@+id/et_sabqi"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:ems="10"
-        android:inputType="text"
         android:hint="Sabqi"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextSabaq" />
+        android:inputType="text"
+        android:maxLines="1"
+        android:minHeight="48dp" />
+
+    <EditText
+        android:id="@+id/et_manzil"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Manzil"
+        android:inputType="text"
+        android:maxLines="1"
+        android:minHeight="48dp" />
 
     <Button
-        android:id="@+id/buttonSubmit"
-        android:layout_width="0dp"
+        android:id="@+id/btn_save"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Submit"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/editTextSabqi" />
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:text="Save" />
+</LinearLayout>
