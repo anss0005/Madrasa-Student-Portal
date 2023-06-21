@@ -1,47 +1,149 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical">
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:screenOrientation="portrait"
+    android:padding="16dp">
 
     <TextView
-        android:id="@+id/textViewId"
+        android:id="@+id/nameh"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Name:"
+        android:textColor="#FF0057"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Name"
+        android:textColor="@color/black"
+        android:textColorHint="@android:color/holo_green_dark"
+        android:textSize="30sp"
+        />
+    <TextView
+        android:id="@+id/ageh"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Age :"
+        android:textColor="#FF0057"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Age"
+        android:textColor="@color/black"
+        android:textColorHint="@android:color/holo_green_dark"
+        android:textSize="24sp"
+
+        />
+    <TextView
+        android:id="@+id/clash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Class:"
+        android:textColor="#FF0057"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        />
+    <TextView
+        android:id="@+id/clas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:text="Class"
+        android:textColor="@color/black"
+        android:textColorHint="@android:color/holo_green_dark"
+        android:textSize="24sp"
+
+        />
 
     <TextView
-        android:id="@+id/textViewName"
+        android:id="@+id/sabaqh"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Sabaq:"
+        android:textColor="#FF0057"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        />
 
     <TextView
-        android:id="@+id/textViewAge"
+        android:id="@+id/sabaq"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Sabaq"
+        android:textColor="@color/black"
+        android:textColorHint="@android:color/holo_green_dark"
+        android:textSize="24sp"
+        />
     <TextView
-        android:id="@+id/textViewClass"
+        android:id="@+id/sabqih"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Sabaqi:"
+        android:textColor="#FF0057"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        />
     <TextView
-        android:id="@+id/textViewDOB"
+        android:id="@+id/sabqi"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Sabaqi"
+        android:textColor="@color/black"
+        android:textColorHint="@android:color/holo_green_dark"
+        android:textSize="24sp"
+        />
     <TextView
-        android:id="@+id/textViewManzil"
+        android:id="@+id/manzilh"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:text="Manzil:"
+        android:textColor="#FF0057"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        />
     <TextView
-        android:id="@+id/textViewSabaq"
+        android:id="@+id/manzil"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Manzil"
+        android:textColor="@color/black"
+        android:textColorHint="@android:color/holo_green_dark"
+        android:textSize="24sp"
+        />
+    <View
+        android:id="@+id/divider3"
+        android:layout_width="395dp"
+        android:layout_height="3dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@color/purple_700"
 
-    <TextView
-        android:id="@+id/textViewSabqi"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+        />
 </LinearLayout>
+
+
+

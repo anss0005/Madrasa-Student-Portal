@@ -2,56 +2,74 @@
 
 package com.example.madrasastudent;
 
+
 public class Student {
-    private String id;
     private String name;
-    private int age;
-    private String studentClass;
-    private String dob;
-    private String manzil;
+    private String age;
+    private String clas;
     private String sabaq;
     private String sabqi;
-
-    public Student(String id, String name, int age, String studentClass, String dob, String manzil, String sabaq, String sabqi) {
-        this.id = id;
+    private String manzil;
+    public Student(String name, String age, String clas, String sabaq, String sabqi, String manzil) {
         this.name = name;
         this.age = age;
-        this.studentClass = studentClass;
-        this.dob = dob;
-        this.manzil = manzil;
+        this.clas = clas;
         this.sabaq = sabaq;
         this.sabqi = sabqi;
-    }
-
-    public String getId() {
-        return id;
+        this.manzil = manzil;
     }
 
     public String getName() {
         return name;
     }
 
-    public int getAge() {
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getAge() {
         return age;
     }
 
-    public String getStudentClass() {
-        return studentClass;
+    public void setAge(String age) {
+        this.age = age;
     }
 
-    public String getDob() {
-        return dob;
+    public String getClas() {
+        return clas;
     }
 
-    public String getManzil() {
-        return manzil;
+    public void setClas(String clas) {
+        this.clas = clas;
     }
 
     public String getSabaq() {
         return sabaq;
     }
 
+    public void setSabaq(String sabaq) {
+        this.sabaq = sabaq;
+    }
+
     public String getSabqi() {
         return sabqi;
     }
+
+    public void setSabqi(String sabqi) {
+        this.sabqi = sabqi;
+    }
+
+    public String getManzil() {
+        return manzil;
+    }
+
+    public void setManzil(String manzil) {
+        this.manzil = manzil;
+    }
+
+    @Override
+    public String toString() {
+        return "Student [name=" + name + ", age=" + age + ", Class=" + clas + ", sabaq=" + sabaq + ", sabaqi=" + sabqi + ", manzil=" + manzil +"]";
+    }
+
 }
