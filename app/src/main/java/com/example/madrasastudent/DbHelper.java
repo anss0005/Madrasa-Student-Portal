@@ -100,7 +100,9 @@ public class DbHelper extends SQLiteOpenHelper {
             return new Student(id, name, age, studentClass, dob, manzil, sabaq, sabqi);
         }
 
-        return null;
+     else
+         return null;
+
     }
 
     public List<Student> viewAllStudents() {
