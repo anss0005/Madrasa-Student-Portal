@@ -47,7 +47,7 @@ public class EditStudent extends AppCompatActivity {
                 }
 
                 Student student = new Student(studentId, name, age, clas, sabaq, sabqi, manzil);
-                db.updateStudent(student);
+                //db.updateStudent(student);
 
                 // Optionally, you can show a success message or perform any other desired actions
                 // Toast.makeText(EditStudent.this, "Student updated successfully", Toast.LENGTH_SHORT).show();
