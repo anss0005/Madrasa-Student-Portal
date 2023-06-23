@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 public class EditStudent extends AppCompatActivity {
 
@@ -43,6 +44,7 @@ public class EditStudent extends AppCompatActivity {
 
                 if (studentId.isEmpty() || name.isEmpty() || age.isEmpty() || clas.isEmpty() || sabaq.isEmpty() || sabqi.isEmpty() || manzil.isEmpty()) {
                     // Handle empty fields or show a message to the user
+                    Toast.makeText(EditStudent.this, "Please fill in all fields", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -50,7 +52,7 @@ public class EditStudent extends AppCompatActivity {
                 db.updateStudent(student);
 
                 // Optionally, you can show a success message or perform any other desired actions
-                // Toast.makeText(EditStudent.this, "Student updated successfully", Toast.LENGTH_SHORT).show();
+                 Toast.makeText(EditStudent.this, "Student updated successfully", Toast.LENGTH_SHORT).show();
             }
         });
     }

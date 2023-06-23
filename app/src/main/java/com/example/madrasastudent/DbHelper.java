@@ -67,6 +67,32 @@ public class DbHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public boolean isStudentIdExists(String studentID) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = null;
+        boolean exists = false;
+
+        try {
+            // Query the database to check if the student ID exists
+            String query = "SELECT * FROM " + TABLE_NAME + " WHERE " + COLUMN_ID + " = ?";
+            cursor = db.rawQuery(query, new String[]{studentID});
+
+            // If a row is returned, it means the student ID already exists
+            if (cursor != null && cursor.moveToFirst()) {
+                exists = true;
+            }
+        } finally {
+            // Close the cursor and database connection
+            if (cursor != null) {
+                cursor.close();
+            }
+            db.close();
+        }
+
+        return exists;
+    }
+
+
     public void updateStudent(Student student) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
